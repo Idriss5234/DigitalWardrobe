@@ -1,0 +1,20 @@
+.getr {
+  width: 100%;
+  background-color: cornflowerblue;
+  box-shadow: 4px 4px gray;
+  margin: 10px;
+  color: aliceblue;
+}
+.getr:hover {
+  transform: scale(1.05);
+  background-color: blue;
+}
+.getw {
+  border-radius: 10px;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
