@@ -15,7 +15,7 @@ const InventoryPage = () => {
   const fetchItems = async () => {
     try {
       const result = await axios.get(
-        "https://digitward.onrender.com/items/fetch"
+        "http://localhost:3001/items/fetch"
       );
       return result.data;
     } catch (error) {
@@ -28,7 +28,7 @@ const InventoryPage = () => {
     const itemsData = await fetchItems();
     return itemsData.map((item, index) => (
       <div key={item.id}>
-        <Tab number={index + 1} name={item.name} imageSrc={item.ImageSource} />
+        <Tab number={index + 1} name={item.name} imageSrc={item.image.filePath} />
       </div>
     ));
   };
@@ -65,14 +65,6 @@ const InventoryPage = () => {
           gap: "20px",
         }}
       >
-        {/*  <Button
-          variant="contained"
-          color="primary"
-          onClick={redirectToDetection}
-          style={{ width: "100%", marginBottom: "20px" }}
-        >
-          Get Recommendations
-    </Button> */}
         <Button
           variant="contained"
           color="secondary"

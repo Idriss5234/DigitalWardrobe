@@ -3,19 +3,24 @@ import Webcam from "react-webcam";
 import Button from "@mui/material/Button";
 import axios from "axios";
 
+
 import { useNavigate } from "react-router-dom";
 
 import "./Detection.css";
 
 const Detection = () => {
+
+
+  const [blob, setBlob] = useState(null);
+
   const saveToDatabase = async (stuff, src) => {
     // stuff is the list of items names
     for (let i = 0; i < stuff.length; i++) {
       console.log(stuff[i]);
-      await axios.post("https://digitward.onrender.com/items/upload", {
-        name: stuff[i],
-        ImageSource: src,
-      });
+      let formo = new FormData();
+      formo.append("name", stuff[i]);
+      formo.append("file", blob);
+      await axios.post("http://localhost:3001/items/upload", formo);
     }
   };
 
@@ -30,6 +35,19 @@ const Detection = () => {
     setImageSrc(imageSrc);
     const img64 = imageSrc.split(",")[1];
     setimg64(img64);
+
+
+    // Convert base64 to binary
+    const byteString = atob(img64);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+  
+    // Create a Blob
+    setBlob(new Blob([ab], { type: 'image/jpeg' }));
+
   };
 
   const USER_ID = "clarifai";
@@ -44,7 +62,7 @@ const Detection = () => {
   const uploadImageToTempStorage = async (base64Image) => {
     try {
       const response = await axios.post(
-        "https://digitward.onrender.com/upload-to-imgbb",
+        "http://localhost:3001/upload-to-imgbb",
         {
           image: base64Image,
         }

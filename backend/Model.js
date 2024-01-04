@@ -7,9 +7,14 @@ const itemSchema = mongoose.Schema(
             required : [true, "Pas d'article sans nom"]
         },
 
-        ImageSource : {
-            type : String,
-        }
+        image : {
+            type : Object,
+            default : {}
+        },
+    },
+
+    {
+        timestamps : true
     }
 );
 
