@@ -18,3 +18,7 @@
   justify-content: center;
   align-items: center;
 }
+
+.button-clicked {
+  margin-top: 500px;
+}
